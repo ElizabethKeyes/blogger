@@ -10,5 +10,7 @@ export const AppState = reactive({
 
   blogs: [],
 
+  /** @type {import('./models/Account.js').Profile|null} */
+  activeProfile: null,
 
 })

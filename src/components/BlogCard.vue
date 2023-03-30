@@ -1,9 +1,11 @@
 <template>
-  <div class="elevation-3 rounded selectable border border-dark border-2 p-2 my-3">
+  <div class="elevation-3 rounded border border-dark border-2 p-2 my-3">
     <section class="row">
       <div class="col-9">
-        <img class="profile-pic" :src="blog.creator.picture" :alt="blog.creator.name"> <span>{{ blog.creator.name
-        }}</span>
+        <router-link :to="{ name: `Profile`, params: { profileId: blog.creatorId } }">
+          <img class="profile-pic" :src="blog.creator.picture" :alt="blog.creator.name"> <span>{{ blog.creator.name
+          }}</span>
+        </router-link>
         <h2>{{ blog.title }}</h2>
         <h5>{{ blog.body }}</h5>
       </div>
