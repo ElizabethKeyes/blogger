@@ -5,9 +5,9 @@
         <div class="d-flex">
           <img class="profile-pic" :src="profile?.picture" alt="">
           <h1 class="pe-2">{{ profile?.name }}</h1>
-          <span class="mt-1"> <button class="btn btn-outline-dark"> <i class="mdi mdi-pen fs-4"></i> </button> </span>
+          <span v-if="profile?.id == account.id" class="mt-1"> <button class="btn btn-outline-dark"> <i
+                class="mdi mdi-pen fs-4"></i> </button> </span>
         </div>
-        <button class="btn btn-outline-dark"> <i class="mdi mdi-plus fs-4"></i> </button>
       </div>
     </section>
 
@@ -17,13 +17,20 @@
       </div>
     </section>
   </div>
+  <BlogModal>
+    <BlogForm />
+  </BlogModal>
 </template>
 
+<!-- TODO make sure conditional rendering works when logged in to proper account -->
 
 <script lang="ts">
 import { onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
+import BlogCard from '../components/BlogCard.vue';
+import BlogForm from '../components/BlogForm.vue';
+import BlogModal from '../components/BlogModal.vue';
 import { router } from '../router';
 import { blogsService } from '../services/BlogsService';
 import { profilesService } from '../services/ProfilesService';
@@ -34,34 +41,37 @@ export default {
   setup() {
     async function getProfileById() {
       try {
-        const profileId = route.params.profileId
+        const profileId = route.params.profileId;
         await profilesService.getProfileById(profileId);
-      } catch (error) {
+      }
+      catch (error) {
         Pop.error(error.message);
-        logger.log(error.message)
+        logger.log(error.message);
       }
     }
-
     async function getBlogsByProfileId() {
       try {
-        const profileId = route.params.profileId
+        const profileId = route.params.profileId;
         await blogsService.getBlogsByProfileId({ creatorId: profileId });
-      } catch (error) {
+      }
+      catch (error) {
         Pop.error(error.message);
-        logger.log(error.message)
+        logger.log(error.message);
       }
     }
     onMounted(() => {
-      getProfileById()
-      getBlogsByProfileId()
-    })
-    const route = useRoute()
+      getProfileById();
+      getBlogsByProfileId();
+    });
+    const route = useRoute();
     return {
       route,
       profile: computed(() => AppState.activeProfile),
       blogs: computed(() => AppState.blogs),
-    }
-  }
+      account: computed(() => AppState.account)
+    };
+  },
+  components: { BlogCard, BlogModal, BlogForm }
 }
 </script>
 

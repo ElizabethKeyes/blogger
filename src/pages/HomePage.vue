@@ -1,11 +1,15 @@
 <template>
   <div class="container-fluid">
     <section class="row">
-      <div class="col-12 px-4" v-for="b in blogs" :key="b.id">
+      <div class="col-12 px-5" v-for="b in blogs" :key="b.id">
         <BlogCard :blog="b" />
       </div>
     </section>
   </div>
+
+  <BlogModal>
+    <BlogForm />
+  </BlogModal>
 </template>
 
 <script>
@@ -15,6 +19,8 @@ import { blogsService } from '../services/BlogsService.js'
 import { onMounted, computed } from "vue";
 import { AppState } from '../AppState.js'
 import BlogCard from "../components/BlogCard.vue";
+import BlogModal from "../components/BlogModal.vue";
+import BlogForm from "../components/BlogForm.vue";
 
 export default {
   setup() {
@@ -31,7 +37,7 @@ export default {
       blogs: computed(() => AppState.blogs)
     }
   },
-  components: { BlogCard }
+  components: { BlogCard, BlogModal, BlogForm }
 }
 </script>
 

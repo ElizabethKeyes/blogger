@@ -1,5 +1,5 @@
 <template>
-  <div class="elevation-3 rounded border border-dark border-2 p-2 my-3">
+  <div class="elevation-3 rounded border border-dark border-2 p-2 my-4">
     <section class="row">
       <div class="col-9">
         <router-link :to="{ name: `Profile`, params: { profileId: blog.creatorId } }">
@@ -10,7 +10,7 @@
         <h5>{{ blog.body }}</h5>
       </div>
       <div class="col-3 d-flex align-items-center">
-        <img class="img-fluid" :src="blog.imgUrl" :alt="'image for' + blog.title">
+        <img class="img-fluid rounded" :src="blog.imgUrl" :alt="'image for' + blog.title">
       </div>
     </section>
   </div>

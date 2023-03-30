@@ -5,6 +5,8 @@
         <h1 class="text-dark"><i class="mdi mdi-email"></i> Blogger</h1>
       </div>
     </router-link>
+    <button v-if="account.id" class="btn btn-outline-dark ms-3" data-bs-toggle="modal" data-bs-target="#blogModal">Create
+      Blog</button>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -24,10 +26,14 @@
 </template>
 
 <script>
+import { AppState } from "../AppState.js";
+import { computed } from "vue";
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account)
+    }
   },
   components: { Login }
 }
@@ -50,6 +56,8 @@ a:hover {
 
 .navbar {
   background-color: #edc248;
+  font-family: 'Special Elite', cursive;
+  min-height: 10vh
 }
 
 @media screen and (min-width: 768px) {
